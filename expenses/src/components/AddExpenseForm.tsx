@@ -1,4 +1,5 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, Select, Stack, Textarea, chakra } from "@chakra-ui/react"
+import { useFrappeCreateDoc } from "frappe-react-sdk"
 import { useForm } from "react-hook-form"
 
 interface FormFields {
@@ -8,11 +9,13 @@ interface FormFields {
     remarks: string
 }
 
-const AddExpenseForm = () => {
+const AddExpenseForm = ({ onClose }: { onClose: () => void; }) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormFields>()
+    const { createDoc, loading: isLoading } = useFrappeCreateDoc()
 
     const onSubmit = async (data: FormFields) => {
-        console.log(data)
+        createDoc("Expense Record", data)
+        onClose()
     }
 
     return (
@@ -56,7 +59,7 @@ const AddExpenseForm = () => {
                     <Textarea {...register('remarks')} />
                     <FormErrorMessage>{errors.remarks?.message}</FormErrorMessage>
                 </FormControl>
-                <Button type='submit' colorScheme='blue'>Save</Button>
+                <Button type='submit' colorScheme='blue' disabled={isLoading}>Save</Button>
             </Stack>
         </chakra.form>
     )
