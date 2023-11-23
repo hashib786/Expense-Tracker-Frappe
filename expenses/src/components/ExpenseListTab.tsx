@@ -4,6 +4,7 @@ import { ExpenseRecord } from "../types/ExpenseTracker/ExpenseRecord"
 import ExpenseTable from "./ExpenseTable"
 import Error from "./Error"
 import Modals from "./Modals"
+import AddExpenseForm from "./AddExpenseForm"
 
 
 const ExpenseListTab = () => {
@@ -13,11 +14,11 @@ const ExpenseListTab = () => {
     return (
         <Stack>
             {error && <Error messege={error.message} />}
-            <Modals isOpen={isOpen} onClose={onClose} tittle="Tittle" description="Description" />
+            <Modals isOpen={isOpen} onClose={onClose} tittle="Tittle" description={<AddExpenseForm />} />
             <HStack justify="space-between">
                 <Heading as="h3" fontSize="x-large">Expenses</Heading>
                 <Box>
-                    <Button colorScheme="blue" onClick={onOpen}>Add</Button>
+                    <Button colorScheme="blue" onClick={onOpen}>Add Expense</Button>
                 </Box>
             </HStack>
             {isLoading && <Center height="40vh"><Spinner /></Center>}
