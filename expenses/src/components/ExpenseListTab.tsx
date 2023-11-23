@@ -10,6 +10,7 @@ import AddExpenseForm from "./AddExpenseForm"
 const ExpenseListTab = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { data, isLoading, error, mutate } = useFrappeGetDocList<ExpenseRecord>("Expense Record", { fields: ["*"] })
+
     useFrappeDocTypeEventListener("Expense Record", (event) => {
         console.log(event)
         if (event.doctype === "Expense Record") mutate()
